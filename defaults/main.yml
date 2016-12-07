@@ -1,0 +1,5 @@
+---
+# defaults file for ansible-role-consul
+proxy: "http://www-proxy-ukc1.uk.oracle.com:80"
+consul_bootstrap_hostname: "{{ inventory_hostname }}"
+consul_ui: true

@@ -1,0 +1,8 @@
+---
+- name: Install bind utils
+  yum: name="bind-utils" state=installed
+  environment:
+    http_proxy: "{{ proxy }}"
+    https_proxy: "{{ proxy }}"
+  tags: yum
+  
