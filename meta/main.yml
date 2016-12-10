@@ -1,8 +1,9 @@
+---
 galaxy_info:
   author: Giuseppe Chiesa
   description: Consul cluster for Oracle Linux 7
   company:
-  license: license (BSD)
+  license: BSD
   min_ansible_version: 1.4
   platforms:
     - name: EL
