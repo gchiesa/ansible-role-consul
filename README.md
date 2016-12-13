@@ -1,11 +1,11 @@
-gchiesa.oel7consul
+gchiesa.consul
 ==================
 
 This role install and setup a consul cluster (docker based)
 
 Requirements
 ------------
-This role requires the gchiesa.oel7docker to run
+This role requires the gchiesa.docker to run
 
 Role Variables
 --------------
@@ -20,7 +20,7 @@ consul_bootstrap_hostname: "{{ inventory_hostname }}"
 
 Dependencies
 ------------
-This role requires the ```gchiesa.oel7docker``` to run
+This role requires the ```gchiesa.docker``` to run
 
 Example Playbook
 ----------------
