@@ -1,30 +1,41 @@
 ---
-- name: Check if the consul chain exists
-  shell: iptables -t filter -L consul
-  register: fw_consul
+- name: Remove the consul chain
+  shell: >
+    iptables -t filter -D INPUT -j consul &&
+    iptables -t filter  -F consul &&
+    iptables -t filter -X consul
   ignore_errors: true
 
-- name: Create the CONSUL chain
+- name: Create the consul chain
   shell: iptables -t filter -N consul && iptables -t filter -I INPUT 1 -j consul
-  when: fw_consul.rc != 0
-
-- name: Check if the docker_service is already opened
-  shell: iptables -t filter -L consul | grep consul_service
-  register: fw_consul_service
-  ignore_errors: true
 
 - name: Open port for docker communication on iptables
   iptables:
     table: filter
     chain: consul
     destination: "{{ host_ip.stdout }}/24"
-    destination_port: 8500
-    protocol: tcp
+    destination_port: "{{ item.port }}"
+    protocol: "{{ item.proto }}"
     state: present
     jump: ACCEPT
-    comment: consul_service
-  when: fw_consul_service.rc != 0
-  # notify: reload iptables
+    comment: consul_service for port "{{ item.port }}"/"{{ item.proto }}"
+  with_items:
+    - proto: tcp
+      port: 8500
+    - proto: tcp
+      port: 8300
+    - proto: tcp
+      port: 8301
+    - proto: udp
+      port: 8301
+    - proto: tcp
+      port: 8302
+    - proto: udp
+      port: 8302
+    - proto: tcp
+      port: 8400
+    - proto: udp
+      port: 53
 
 - name: Iptables save
   shell: iptables-save > "{{ iptables_config }}"

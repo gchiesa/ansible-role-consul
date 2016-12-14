@@ -1,21 +1,8 @@
 ---
-- name: Prepare consul persistent storage
-  when: inventory_hostname in groups['consul_cluster']
-  file: name=/docker/consul/data
-    owner=root group=docker
-    state=directory
-    mode=2770 setype=svirt_sandbox_file_t
-
 - name: Get the address of docker0
   shell: ip addr show docker0 | grep -Po 'inet \K[\d.]+'
   register: docker0_ip
 
-# - name: Removing consul node
-#   docker:
-#     name: consul_node
-#     image: progrium/consul
-#     state: absent
-#
 - name: Start the consul bootstrap node
   when:
     - inventory_hostname in groups['consul_cluster']
@@ -25,8 +12,6 @@
     image: progrium/consul
     state: reloaded
     restart_policy: always
-    volumes:
-      - /docker/consul/data:/data
     ports:
       - "{{host_ip.stdout}}:8300:8300"
       - "{{host_ip.stdout}}:8301:8301"
@@ -47,8 +32,6 @@
     image: progrium/consul
     state: reloaded
     restart_policy: always
-    volumes:
-      - /docker/consul/data:/data
     ports:
       - "{{host_ip.stdout}}:8300:8300"
       - "{{host_ip.stdout}}:8301:8301"
