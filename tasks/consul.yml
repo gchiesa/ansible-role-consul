@@ -4,23 +4,18 @@
   file: name=/docker/consul/data
     owner=root group=docker
     state=directory
-    mode=2770
+    mode=2770 setype=svirt_sandbox_file_t
 
 - name: Get the address of docker0
   shell: ip addr show docker0 | grep -Po 'inet \K[\d.]+'
   register: docker0_ip
 
-- name: Copy the getip script
-  copy: src=files/get_ip.sh dest=/tmp/get_ip.sh mode=0755
-
-- name: Get the host ip
-  shell: /tmp/get_ip.sh $(hostname -f)
-  register: host_ip
-
-- name: Get the consul bootstrap IP
-  shell: /tmp/get_ip.sh {{ consul_bootstrap_hostname }}
-  register: bootstrap_ip
-
+# - name: Removing consul node
+#   docker:
+#     name: consul_node
+#     image: progrium/consul
+#     state: absent
+#
 - name: Start the consul bootstrap node
   when:
     - inventory_hostname in groups['consul_cluster']
