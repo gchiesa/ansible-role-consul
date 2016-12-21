@@ -22,6 +22,7 @@
       - "{{host_ip.stdout}}:8500:8500"
       - "{{docker0_ip.stdout}}:53:53/udp"
     command: -server -advertise "{{ host_ip.stdout }}" -bootstrap-expect 3
+    docker_api_version: 1.22
 
 - name: Start the consul node
   when:
@@ -42,3 +43,4 @@
       - "{{host_ip.stdout}}:8500:8500"
       - "{{docker0_ip.stdout}}:53:53/udp"
     command: -server -advertise "{{ host_ip.stdout }}" -join "{{ bootstrap_ip.stdout }}"
+    docker_api_version: 1.22
