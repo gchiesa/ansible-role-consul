@@ -9,6 +9,9 @@ galaxy_info:
     - name: EL
       versions:
         - 7
+    - name: CentOS
+      versions:
+        - 7
   galaxy_tags: [consul, docker, oraclelinux]
 dependencies:
   - { role: gchiesa.docker }
