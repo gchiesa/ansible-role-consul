@@ -42,5 +42,5 @@
       - "{{host_ip_internal.stdout}}:8400:8400"
       - "{{host_ip_internal.stdout}}:8500:8500"
       - "{{docker0_ip.stdout}}:53:53/udp"
-    command: -server -advertise "{{ host_ip_external.stdout }}" -join "{{ bootstrap_ip.stdout }}"
+    command: -server -advertise "{{ host_ip_external.stdout|mandatory }}" -join "{{ bootstrap_ip.stdout|mandatory }}"
     docker_api_version: 1.22
