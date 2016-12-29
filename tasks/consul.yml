@@ -13,15 +13,15 @@
     state: reloaded
     restart_policy: always
     ports:
-      - "{{host_ip.stdout}}:8300:8300"
-      - "{{host_ip.stdout}}:8301:8301"
-      - "{{host_ip.stdout}}:8301:8301/udp"
-      - "{{host_ip.stdout}}:8302:8302"
-      - "{{host_ip.stdout}}:8302:8302/udp"
-      - "{{host_ip.stdout}}:8400:8400"
-      - "{{host_ip.stdout}}:8500:8500"
+      - "{{host_ip_internal.stdout}}:8300:8300"
+      - "{{host_ip_internal.stdout}}:8301:8301"
+      - "{{host_ip_internal.stdout}}:8301:8301/udp"
+      - "{{host_ip_internal.stdout}}:8302:8302"
+      - "{{host_ip_internal.stdout}}:8302:8302/udp"
+      - "{{host_ip_internal.stdout}}:8400:8400"
+      - "{{host_ip_internal.stdout}}:8500:8500"
       - "{{docker0_ip.stdout}}:53:53/udp"
-    command: -server -advertise "{{ host_ip.stdout }}" -bootstrap-expect 3
+    command: -server -advertise "{{ host_ip_external.stdout }}" -bootstrap-expect 3
     docker_api_version: 1.22
 
 - name: Start the consul node
@@ -34,13 +34,13 @@
     state: reloaded
     restart_policy: always
     ports:
-      - "{{host_ip.stdout}}:8300:8300"
-      - "{{host_ip.stdout}}:8301:8301"
-      - "{{host_ip.stdout}}:8301:8301/udp"
-      - "{{host_ip.stdout}}:8302:8302"
-      - "{{host_ip.stdout}}:8302:8302/udp"
-      - "{{host_ip.stdout}}:8400:8400"
-      - "{{host_ip.stdout}}:8500:8500"
+      - "{{host_ip_internal.stdout}}:8300:8300"
+      - "{{host_ip_internal.stdout}}:8301:8301"
+      - "{{host_ip_internal.stdout}}:8301:8301/udp"
+      - "{{host_ip_internal.stdout}}:8302:8302"
+      - "{{host_ip_internal.stdout}}:8302:8302/udp"
+      - "{{host_ip_internal.stdout}}:8400:8400"
+      - "{{host_ip_internal.stdout}}:8500:8500"
       - "{{docker0_ip.stdout}}:53:53/udp"
-    command: -server -advertise "{{ host_ip.stdout }}" -join "{{ bootstrap_ip.stdout }}"
+    command: -server -advertise "{{ host_ip_external.stdout }}" -join "{{ bootstrap_ip.stdout }}"
     docker_api_version: 1.22
