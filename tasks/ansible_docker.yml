@@ -22,3 +22,6 @@
 - name: Install ansible docker
   pip:
     name: docker_py
+  environment:
+    http_proxy: "{{ proxy }}"
+    https_proxy: "{{ proxy }}"
