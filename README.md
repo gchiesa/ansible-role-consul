@@ -16,6 +16,9 @@ proxy: ""
 
 # bootstrap node for consul cluster
 consul_bootstrap_hostname: "{{ inventory_hostname }}"
+
+# set true if the host is natted
+host_natted: false
 ```
 
 Dependencies
