@@ -3,6 +3,12 @@
   shell: ip addr show docker0 | grep -Po 'inet \K[\d.]+'
   register: docker0_ip
 
+- name: Remove the consul node
+  docker:
+    name: consul_node
+    image: progrium/consul
+    state: absent
+
 - name: Start the consul bootstrap node
   when:
     - inventory_hostname in groups['consul_cluster']
@@ -12,6 +18,7 @@
     image: progrium/consul
     state: reloaded
     restart_policy: always
+    net: host
     ports:
       - "{{host_ip_internal.stdout}}:8300:8300"
       - "{{host_ip_internal.stdout}}:8301:8301"
@@ -24,6 +31,10 @@
     command: -server -advertise "{{ host_ip_external.stdout }}" -bootstrap-expect 3
     docker_api_version: 1.22
 
+- name: Wait for the bootstrap node to be up
+  shell: sleep 10
+  when: inventory_hostname in groups['consul_cluster']
+
 - name: Start the consul node
   when:
     - inventory_hostname in groups['consul_cluster']
@@ -33,6 +44,7 @@
     image: progrium/consul
     state: reloaded
     restart_policy: always
+    net: host
     ports:
       - "{{host_ip_internal.stdout}}:8300:8300"
       - "{{host_ip_internal.stdout}}:8301:8301"
