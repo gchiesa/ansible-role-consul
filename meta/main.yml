@@ -11,5 +11,6 @@ galaxy_info:
         - 7
   galaxy_tags: [consul, docker]
 dependencies:
-  - { role: gchiesa.docker }
+  - src: gchiesa.docker 
+    version: 1.0.0
 
