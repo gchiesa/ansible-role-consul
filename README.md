@@ -1,11 +1,11 @@
 gchiesa.consul
 ==================
 
-This role install and setup a consul cluster (docker based) on Oracle Linux 7 and CentOS 7
+This role install and setup a consul cluster (docker based) on Enterprise Linux
 
 Requirements
 ------------
-This role requires the gchiesa.docker to run
+This role requires the ```gchiesa.docker``` to run
 
 Role Variables
 --------------

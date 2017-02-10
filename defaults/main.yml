@@ -2,7 +2,7 @@
 # defaults file for ansible-role-consul
 
 # proxy server to use to install packages
-proxy: "http://www-proxy-ukc1.uk.oracle.com:80"
+proxy: ""
 
 # bootstrap node for consul cluster
 consul_bootstrap_hostname: "{{ inventory_hostname }}"

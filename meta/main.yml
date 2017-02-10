@@ -1,14 +1,15 @@
 ---
 galaxy_info:
   author: Giuseppe Chiesa
-  description: Consul cluster for Oracle Linux 7
+  description: Consul cluster for Enterprise Linux
   company:
   license: BSD
-  min_ansible_version: 1.4
+  min_ansible_version: 2.0
   platforms:
     - name: EL
       versions:
         - 7
-  galaxy_tags: [consul, docker, oraclelinux]
+  galaxy_tags: [consul, docker]
 dependencies:
   - { role: gchiesa.docker }
+
