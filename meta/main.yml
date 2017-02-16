@@ -1,10 +1,10 @@
 ---
 galaxy_info:
   author: Giuseppe Chiesa
-  description: Consul cluster for Oracle Linux 7
+  description: Consul cluster for CentOS / Oracle Linux
   company:
   license: BSD
-  min_ansible_version: 1.4
+  min_ansible_version: 2.0
   platforms:
     - name: EL
       versions:
@@ -12,3 +12,4 @@ galaxy_info:
   galaxy_tags: [consul, docker, oraclelinux]
 dependencies:
   - { role: gchiesa.docker }
+  - { role: gchiesa.iputils, tags: ["common", "consul_bootstrap"], consul_bootstrap_hostname: {{ consul_bootstrap_hostname }} }

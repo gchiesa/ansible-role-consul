@@ -20,15 +20,15 @@
     restart_policy: always
     net: host
     ports:
-      - "{{host_ip_internal.stdout}}:8300:8300"
-      - "{{host_ip_internal.stdout}}:8301:8301"
-      - "{{host_ip_internal.stdout}}:8301:8301/udp"
-      - "{{host_ip_internal.stdout}}:8302:8302"
-      - "{{host_ip_internal.stdout}}:8302:8302/udp"
-      - "{{host_ip_internal.stdout}}:8400:8400"
-      - "{{host_ip_internal.stdout}}:8500:8500"
-      - "{{docker0_ip.stdout}}:53:53/udp"
-    command: -server -advertise "{{ host_ip_external.stdout }}" -bootstrap-expect 3
+      - "{{ iputils_ip_internal }}:8300:8300"
+      - "{{ iputils_ip_internal }}:8301:8301"
+      - "{{ iputils_ip_internal }}:8301:8301/udp"
+      - "{{ iputils_ip_internal }}:8302:8302"
+      - "{{ iputils_ip_internal }}:8302:8302/udp"
+      - "{{ iputils_ip_internal }}:8400:8400"
+      - "{{ iputils_ip_internal }}:8500:8500"
+      - "{{ iputils_ip_docker0 }}:53:53/udp"
+    command: -server -advertise "{{ iputils_ip_external }}" -bootstrap-expect 3
     docker_api_version: 1.22
 
 - name: Wait for the bootstrap node to be up
@@ -46,13 +46,13 @@
     restart_policy: always
     net: host
     ports:
-      - "{{host_ip_internal.stdout}}:8300:8300"
-      - "{{host_ip_internal.stdout}}:8301:8301"
-      - "{{host_ip_internal.stdout}}:8301:8301/udp"
-      - "{{host_ip_internal.stdout}}:8302:8302"
-      - "{{host_ip_internal.stdout}}:8302:8302/udp"
-      - "{{host_ip_internal.stdout}}:8400:8400"
-      - "{{host_ip_internal.stdout}}:8500:8500"
-      - "{{docker0_ip.stdout}}:53:53/udp"
-    command: -server -advertise "{{ host_ip_external.stdout|mandatory }}" -join "{{ bootstrap_ip.stdout|mandatory }}"
+      - "{{ iputils_ip_internal }}:8300:8300"
+      - "{{ iputils_ip_internal }}:8301:8301"
+      - "{{ iputils_ip_internal }}:8301:8301/udp"
+      - "{{ iputils_ip_internal }}:8302:8302"
+      - "{{ iputils_ip_internal }}:8302:8302/udp"
+      - "{{ iputils_ip_internal }}:8400:8400"
+      - "{{ iputils_ip_internal }}:8500:8500"
+      - "{{ iputils_ip_docker0 }}:53:53/udp"
+    command: -server -advertise "{{ iputils_ip_external|mandatory }}" -join "{{ iputils_ip_consul_bootstrap|mandatory }}"
     docker_api_version: 1.22

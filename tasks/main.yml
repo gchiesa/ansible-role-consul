@@ -1,7 +1,6 @@
 ---
 # tasks file for ansible-role-consul
 - include: yum.yml
-- include: ip_detect.yml
 - include: ansible_docker.yml
 - include: firewall.yml
 - include: consul.yml
